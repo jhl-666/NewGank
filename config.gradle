@@ -34,6 +34,7 @@ ext {
             "SmartRefreshHeader" : 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4-5',//没有使用特殊Header，可以不加这行
             "glide" : 'com.github.bumptech.glide:glide:3.7.0',
             "butterknife_compiler" : 'com.jakewharton:butterknife-compiler:8.8.1',
-            "photoview" : 'com.github.chrisbanes.photoview:library:1.2.4'
+            "photoview" : 'com.github.chrisbanes.photoview:library:1.2.4',
+            "statusbarutil" : 'com.jaeger.statusbarutil:library:1.4.0'
     ]
 }

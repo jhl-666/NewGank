@@ -12,8 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.jaeger.library.StatusBarUtil;
 import com.ljhdemo.newgank.R;
-import com.ljhdemo.newgank.utils.BarUtils;
 import com.ljhdemo.newgank.utils.NetworkUtils;
 
 import rx.Observable;
@@ -43,9 +43,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         setContentView(savedInstanceState);
 
+        setBarColor();
+
         initView();
 
-        setBarColor();
 
        /* boolean networkEnable = NetworkUtils.isNetworkEnable(this.getApplicationContext());
         if (!networkEnable) {
@@ -64,7 +65,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void setBarColor() {
         int color = getResources().getColor(R.color.colorPrimaryDark);
-        BarUtils.setColor(BaseActivity.this, color);
+        StatusBarUtil.setColor(this,color);
+       // BarUtils.setColor(BaseActivity.this, color);
     }
 
     //得到上一个页面传递的数据

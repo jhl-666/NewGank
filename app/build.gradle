@@ -54,6 +54,7 @@ dependencies {
     compile librarys.BaseRecyclerViewAdapterHelper
     compile librarys.SmartRefreshLayout
     compile librarys.photoview
+    compile librarys.statusbarutil
     compile librarys.SmartRefreshHeader//没有使用特殊Header，可以不加这行
     implementation librarys.glide
     annotationProcessor librarys.butterknife_compiler

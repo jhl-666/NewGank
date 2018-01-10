@@ -61,6 +61,7 @@ public class ImagePagerActivity extends BaseActivity {
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, urls);
         mViewPager.setAdapter(imagesPagerAdapter);
         mViewPager.setCurrentItem(position, false);
+        mPagerIndexTextView.setText(String.valueOf((position + 1) + "/" + urls.size()));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

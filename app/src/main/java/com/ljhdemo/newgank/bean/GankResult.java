@@ -54,6 +54,15 @@ public class GankResult {
         private String url;
         private boolean used;
         private String who;
+        private int itemHeight;
+
+        public int getItemHeight() {
+            return itemHeight;
+        }
+
+        public void setItemHeight(int itemHeight) {
+            this.itemHeight = itemHeight;
+        }
 
         public String get_id() {
             return _id;

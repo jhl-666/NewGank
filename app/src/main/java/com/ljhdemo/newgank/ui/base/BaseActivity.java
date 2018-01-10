@@ -12,8 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.jaeger.library.StatusBarUtil;
-import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.utils.NetworkUtils;
 
 import rx.Observable;
@@ -64,8 +62,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void setBarColor() {
-        int color = getResources().getColor(R.color.colorPrimaryDark);
-        StatusBarUtil.setColor(this,color);
+       /* int color = getResources().getColor(R.color.colorPrimaryDark);
+        StatusBarUtil.setColor(this,color);*/
        // BarUtils.setColor(BaseActivity.this, color);
     }
 

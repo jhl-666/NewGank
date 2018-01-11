@@ -1,9 +1,11 @@
 package com.ljhdemo.newgank.ui.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.ljhdemo.newgank.R;
@@ -25,6 +27,10 @@ public class ImagesPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         //View view = (View) LayoutInflater.from(mContext).inflate(R.layout.activity_image_pager_item, null);
         PhotoView photoView = new PhotoView(mContext);
+        photoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            photoView.setTransitionName("imageview" + position);
+        }
 
         Glide.with(mContext)
                 .load(mUrls.get(position))

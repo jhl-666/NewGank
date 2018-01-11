@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.ui.CustomerView.PhotoViewPager;
 import com.ljhdemo.newgank.ui.adapter.ImagesPagerAdapter;
 import com.ljhdemo.newgank.ui.base.BaseActivity;
-import com.ljhdemo.newgank.utils.BarUtils;
 
 import java.util.ArrayList;
 
@@ -50,9 +50,30 @@ public class ImagePagerActivity extends BaseActivity {
 
     @Override
     protected void setContentView(Bundle savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
         setContentView(R.layout.activity_image_pager);
-        BarUtils.setColor(this, android.R.color.black);
         ButterKnife.bind(this);
+
+        hideStatusBar();
+    }
+
+    private void hideStatusBar() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+    }
+
+    private void showStatusBar() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setAttributes(attrs);
+    }
+
+
+    @Override
+    protected void setBarColor() {
     }
 
     @Override

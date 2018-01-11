@@ -99,7 +99,7 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
                 }
                 //查看大图
                 Intent intent = ImagePagerActivity.newIntent(mContext, imgs, position);
-                IntentUtils.startImagePagerActivity(mContext,intent,view);
+                IntentUtils.startImagePagerActivity(mContext,intent,view,welfareFragmentAdapter.getTransitionName(position));
             }
         });
         mRecyclerView.setAdapter(welfareFragmentAdapter);

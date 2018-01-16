@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.utils.NetworkUtils;
@@ -92,16 +91,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_NETWORK_CHANGE);
         registerReceiver(receiver, filter);
-
-        Glide.with(this.getApplicationContext()).resumeRequests();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
-
-        Glide.with(this.getApplicationContext()).pauseRequests();
     }
 
     public void networkAlert(final Context context) {
@@ -156,7 +151,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Glide.with(this.getApplicationContext()).onDestroy();
         super.onDestroy();
     }
 }

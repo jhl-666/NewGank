@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.kogitune.activity_transition.ActivityTransition;
+import com.kogitune.activity_transition.ExitActivityTransition;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.ui.CustomerView.PhotoViewPager;
 import com.ljhdemo.newgank.ui.adapter.ImagesPagerAdapter;
@@ -39,6 +41,8 @@ public class ImagePagerActivity extends BaseActivity {
 
     private ArrayList<String> urls;//图片地址数据
     private int position;//当前图片位置
+    private ExitActivityTransition exitActivityTransition;
+    private Bundle mSavedInstanceState;
 
     @Override
     protected void initVariable() {
@@ -52,6 +56,8 @@ public class ImagePagerActivity extends BaseActivity {
     protected void setContentView(Bundle savedInstanceState) {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        mSavedInstanceState = savedInstanceState;
 
         setContentView(R.layout.activity_image_pager);
         ButterKnife.bind(this);
@@ -99,5 +105,11 @@ public class ImagePagerActivity extends BaseActivity {
 
             }
         });
+        exitActivityTransition = ActivityTransition.with(getIntent()).duration(200).to(mViewPager).start(mSavedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        exitActivityTransition.exit(this);
     }
 }

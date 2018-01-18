@@ -2,9 +2,9 @@ package com.ljhdemo.newgank.http;
 
 import com.ljhdemo.newgank.bean.GankResult;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by ljh on 2017/12/27.

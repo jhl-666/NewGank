@@ -37,6 +37,9 @@ public class WelfareFragmentAdapter extends BaseQuickAdapter<GankResult.ResultsB
         GlideApp.with(mContext)
                 .load(item.getUrl())
                 //.transition(withCrossFade(2000))//动画
+                .centerCrop()
                 .into((ImageView) helper.getView(R.id.image_view));
+
+        helper.addOnClickListener(R.id.image_view);
     }
 }

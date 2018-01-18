@@ -2,7 +2,9 @@ package com.ljhdemo.newgank.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
+import com.ljhdemo.newgank.ui.CustomerView.x5webview.PreLoadX5Service;
 import com.ljhdemo.newgank.utils.LogUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
@@ -47,10 +49,17 @@ public class MyApplication extends Application {
         mContext = getApplicationContext();
 
         initLogger();//初始化logger
+
+        initTencentBrowser();
     }
 
     private void initLogger() {
         LogUtil.init();
+    }
+
+    private void initTencentBrowser() {
+        Intent intent = new Intent(this, PreLoadX5Service.class);
+        startService(intent);
     }
 
 

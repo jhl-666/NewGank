@@ -2,10 +2,10 @@ package com.ljhdemo.newgank.ui.presenter;
 
 /**
  * Created by ljh on 2018/1/4.
- * 福利
+ * 分类
  */
 
-public interface IWelfarePresenter {
+public interface ICategoryPresenter {
     void getNewDatas();
 
     void getMoreDatas();

@@ -26,7 +26,7 @@ public class ImagesPagerAdapter extends PagerAdapter {
         //View view = (View) LayoutInflater.from(mContext).inflate(R.layout.activity_image_pager_item, null);
         PhotoView photoView = new PhotoView(mContext);
         photoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
+        photoView.setAdjustViewBounds(true);
         GlideApp.with(mContext)
                 .load(mUrls.get(position))
                 .thumbnail(0.2f)

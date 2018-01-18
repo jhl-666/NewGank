@@ -55,6 +55,15 @@ public class GankResult {
         private boolean used;
         private String who;
         private int itemHeight;
+        private List<String> images;
+
+        public List<String> getImages() {
+            return images;
+        }
+
+        public void setImages(List<String> images) {
+            this.images = images;
+        }
 
         public int getItemHeight() {
             return itemHeight;

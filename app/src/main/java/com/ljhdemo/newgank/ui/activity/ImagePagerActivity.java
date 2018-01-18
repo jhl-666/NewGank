@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -54,15 +56,15 @@ public class ImagePagerActivity extends BaseActivity {
 
     @Override
     protected void setContentView(Bundle savedInstanceState) {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+       /* getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);*/
 
         mSavedInstanceState = savedInstanceState;
 
         setContentView(R.layout.activity_image_pager);
         ButterKnife.bind(this);
 
-        hideStatusBar();
+        //hideStatusBar();
     }
 
     private void hideStatusBar() {
@@ -80,6 +82,7 @@ public class ImagePagerActivity extends BaseActivity {
 
     @Override
     protected void setBarColor() {
+        //StatusBarUtil.setColor(this, getResources().getColor(R.color.status_bar_black));
     }
 
     @Override
@@ -105,11 +108,16 @@ public class ImagePagerActivity extends BaseActivity {
 
             }
         });
-        exitActivityTransition = ActivityTransition.with(getIntent()).duration(200).to(mViewPager).start(mSavedInstanceState);
+        exitActivityTransition = ActivityTransition.with(getIntent())
+                .duration(500)
+                .interpolator(new LinearOutSlowInInterpolator())
+                .to(mViewPager)
+                .start(mSavedInstanceState);
     }
 
     @Override
     public void onBackPressed() {
-        exitActivityTransition.exit(this);
+        //exitActivityTransition.exit(this);
+        exitActivityTransition.interpolator(new FastOutSlowInInterpolator()).exit(this);
     }
 }

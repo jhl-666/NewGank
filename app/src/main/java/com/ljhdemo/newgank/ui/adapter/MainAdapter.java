@@ -1,5 +1,6 @@
 package com.ljhdemo.newgank.ui.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,10 +15,18 @@ import java.util.ArrayList;
 
 public class MainAdapter extends FragmentPagerAdapter {
     private ArrayList<BaseFragment> mData;
+    private String[] mTitles;
 
-    public MainAdapter(FragmentManager fm, ArrayList<BaseFragment> data) {
+    public MainAdapter(FragmentManager fm, ArrayList<BaseFragment> data, String[] titles) {
         super(fm);
         mData = data;
+        mTitles = titles;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mTitles[position];
     }
 
     @Override

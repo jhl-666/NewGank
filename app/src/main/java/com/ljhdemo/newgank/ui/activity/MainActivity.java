@@ -8,10 +8,13 @@ import android.widget.Button;
 
 import com.jaeger.library.StatusBarUtil;
 import com.ljhdemo.newgank.R;
+import com.ljhdemo.newgank.constant.Constants;
 import com.ljhdemo.newgank.ui.adapter.MainAdapter;
 import com.ljhdemo.newgank.ui.base.BaseActivity;
 import com.ljhdemo.newgank.ui.base.BaseFragment;
+import com.ljhdemo.newgank.ui.fragment.CategoryFragment;
 import com.ljhdemo.newgank.ui.fragment.WelfareFragment;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawerLayout)
     DrawerLayout mDrawerLayout;
 
+    @BindView(R.id.smart_tab_layout)
+    SmartTabLayout mSmartTabLayout;
+
     @Override
     protected void setContentView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
@@ -44,16 +50,43 @@ public class MainActivity extends BaseActivity {
 
         ArrayList<BaseFragment> data = new ArrayList<>();
         data.add(WelfareFragment.newInstance());
-        data.add(WelfareFragment.newInstance());
-        data.add(WelfareFragment.newInstance());
+        data.add(CategoryFragment.newInstance(Constants.FlagAndroid));
+        data.add(CategoryFragment.newInstance(Constants.FlagIOS));
+        data.add(CategoryFragment.newInstance(Constants.FlagVideo));
+        data.add(CategoryFragment.newInstance(Constants.FlagExpand));
+        data.add(CategoryFragment.newInstance(Constants.FlagJS));
+        data.add(CategoryFragment.newInstance(Constants.FlagAll));
 
         mViewPager.setOffscreenPageLimit(5);
-        mViewPager.setAdapter(new MainAdapter(getSupportFragmentManager(), data));
+        String[] titles = new String[]{
+                Constants.FlagWelFare,
+                Constants.FlagAndroid,
+                Constants.FlagIOS,
+                Constants.FlagVideo,
+                Constants.FlagExpand,
+                Constants.FlagJS,
+                Constants.FlagAll};
+        mViewPager.setAdapter(new MainAdapter(getSupportFragmentManager(), data, titles));
+        mSmartTabLayout.setViewPager(mViewPager);
+        mSmartTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
     protected void setBarColor() {
-        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, getResources().getColor(R.color.colorPrimaryDark), 112);
+        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, getResources().getColor(R.color.status_bar), 112);
     }
 
     public void initToolBar(Toolbar toolbar, String title, int icon) {

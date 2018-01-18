@@ -1,11 +1,10 @@
 package com.ljhdemo.newgank.ui.presenter.impl;
 
 import com.ljhdemo.newgank.bean.GankResult;
-import com.ljhdemo.newgank.constant.Constants;
 import com.ljhdemo.newgank.http.ServiceGenerator;
 import com.ljhdemo.newgank.ui.base.BasePresenter;
-import com.ljhdemo.newgank.ui.iView.IWelfareView;
-import com.ljhdemo.newgank.ui.presenter.IWelfarePresenter;
+import com.ljhdemo.newgank.ui.iView.ICategoryView;
+import com.ljhdemo.newgank.ui.presenter.ICategoryPresenter;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -18,22 +17,25 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by ljh on 2018/1/4.
+ * 分类
  */
 
-public class WelfarePresenterImpl extends BasePresenter<IWelfareView> implements IWelfarePresenter {
+public class CategoryPresenterImpl extends BasePresenter<ICategoryView> implements ICategoryPresenter {
 
     private List<GankResult.ResultsBean> beanList;
     private int pageNum = 1;
     private LifecycleProvider<FragmentEvent> mProvider;
+    private String mCategory;
 
-    public WelfarePresenterImpl(LifecycleProvider<FragmentEvent> provider) {
+    public CategoryPresenterImpl(LifecycleProvider<FragmentEvent> provider, String category) {
         mProvider = provider;
+        mCategory = category;
     }
 
     @Override
     public void getNewDatas() {
         ServiceGenerator.getApiService()
-                .getGankResult(Constants.FlagWelFare, 10, pageNum)
+                .getGankResult(mCategory, 10, pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(mProvider.<GankResult>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
@@ -47,7 +49,7 @@ public class WelfarePresenterImpl extends BasePresenter<IWelfareView> implements
                     public void onNext(GankResult gankResult) {
                         beanList = gankResult.getResults();
                         getView().overRefresh(true);
-                        getView().setWelFareList(beanList);
+                        getView().setCategoryList(beanList);
                     }
 
                     @Override
@@ -67,7 +69,7 @@ public class WelfarePresenterImpl extends BasePresenter<IWelfareView> implements
     public void getMoreDatas() {
         pageNum++;
         ServiceGenerator.getApiService()
-                .getGankResult("福利", 10, pageNum)
+                .getGankResult(mCategory, 10, pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(mProvider.<GankResult>bindUntilEvent(FragmentEvent.DESTROY_VIEW))
@@ -86,7 +88,7 @@ public class WelfarePresenterImpl extends BasePresenter<IWelfareView> implements
                         } else {
                             beanList.addAll(gankResult.getResults());
                             getView().setLoadMoreEnabled(true);
-                            getView().setWelFareList(gankResult.getResults());
+                            getView().setCategoryList(gankResult.getResults());
                         }
                     }
 

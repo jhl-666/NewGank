@@ -1,10 +1,11 @@
 package com.ljhdemo.newgank.ui.fragment;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +14,17 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.bean.GankResult;
-import com.ljhdemo.newgank.ui.activity.ImagePagerActivity;
-import com.ljhdemo.newgank.ui.adapter.WelfareFragmentAdapter;
+import com.ljhdemo.newgank.ui.CustomerView.x5webview.TencentBrowserActivity;
+import com.ljhdemo.newgank.ui.adapter.CategoryFragmentAdapter;
 import com.ljhdemo.newgank.ui.base.MVPBaseFragment;
-import com.ljhdemo.newgank.ui.iView.IWelfareView;
-import com.ljhdemo.newgank.ui.presenter.impl.WelfarePresenterImpl;
-import com.ljhdemo.newgank.utils.DensityUtil;
-import com.ljhdemo.newgank.utils.IntentUtils;
-import com.ljhdemo.newgank.utils.SpaceItemDecoration;
+import com.ljhdemo.newgank.ui.iView.ICategoryView;
+import com.ljhdemo.newgank.ui.presenter.impl.CategoryPresenterImpl;
 import com.ljhdemo.newgank.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,43 +32,57 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by ljh on 2018/1/4.
+ * 分类fragment("福利", "Android", "ios", "休息视频", "拓展资源", "前端", "all")
  */
+public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPresenterImpl> implements ICategoryView {
 
-public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresenterImpl> implements IWelfareView {
-
-    public static WelfareFragment newInstance() {
-        return new WelfareFragment();
+    public static CategoryFragment newInstance(String category) {
+        CategoryFragment welfareFragment = new CategoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(CATEGORY_KEY, category);
+        welfareFragment.setArguments(bundle);
+        return welfareFragment;
     }
 
-    Unbinder unbinder;
-    private WelfareFragmentAdapter welfareFragmentAdapter;
+    public static final String CATEGORY_KEY = "CategoryFragment.CATEGORY_KEY";
+
+    private String mCategory;
+    private CategoryFragmentAdapter mCategoryFragmentAdapter;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
+    Unbinder unbinder;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Bundle bundle = getArguments();
+        mCategory = bundle.getString(CATEGORY_KEY);
+
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_welfare_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
+        initData();
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    private void initData() {
+        mPresenter.getNewDatas();
     }
 
     protected void initView() {
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtil.dip2px(mContext, 2), 2));
+
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -87,36 +98,21 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
             }
         });
         mSmartRefreshLayout.setEnableLoadmore(true);
-        welfareFragmentAdapter = new WelfareFragmentAdapter(R.layout.fragment_welfare_item, null, mContext);
-        welfareFragmentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mCategoryFragmentAdapter = new CategoryFragmentAdapter(null, mContext);
+        mCategoryFragmentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String url = mCategoryFragmentAdapter.getData().get(position).getUrl();
+                Intent intent = TencentBrowserActivity.newIntent(mContext, url);
+                startActivity(intent);
             }
         });
-        welfareFragmentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.image_view:
-                        List<GankResult.ResultsBean> data = welfareFragmentAdapter.getData();
-                        ArrayList<String> imgs = new ArrayList<>();
-                        for (GankResult.ResultsBean resultsBean : data) {
-                            imgs.add(resultsBean.getUrl());
-                        }
-                        //查看大图
-                        Intent intent = ImagePagerActivity.newIntent(mContext, imgs, position);
-                        IntentUtils.startImagePagerActivity(mContext, intent, view);
-                        break;
-                }
-            }
-        });
-        mRecyclerView.setAdapter(welfareFragmentAdapter);
-        mSmartRefreshLayout.autoRefresh();
+        mRecyclerView.setAdapter(mCategoryFragmentAdapter);
     }
 
     @Override
-    public void setWelFareList(List<GankResult.ResultsBean> welFareList) {
-        welfareFragmentAdapter.addData(welFareList);
+    public void setCategoryList(List<GankResult.ResultsBean> categoryList) {
+        mCategoryFragmentAdapter.addData(categoryList);
     }
 
     @Override
@@ -130,15 +126,19 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
         mSmartRefreshLayout.finishLoadmore(flag);
     }
 
-
     @Override
     public void setLoadMoreEnabled(boolean flag) {
         mSmartRefreshLayout.setEnableLoadmore(flag);
     }
 
     @Override
-    protected WelfarePresenterImpl createPresenter() {
-        return new WelfarePresenterImpl(provider);
+    protected CategoryPresenterImpl createPresenter() {
+        return new CategoryPresenterImpl(provider, mCategory);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

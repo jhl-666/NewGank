@@ -9,24 +9,32 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 
 import com.jaeger.library.StatusBarUtil;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.utils.NetworkUtils;
+import com.trello.navi2.component.support.NaviAppCompatActivity;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends NaviAppCompatActivity {
     // 可以把常量单独放到一个Class中
     public static final String ACTION_NETWORK_CHANGE = "android.net.conn.CONNECTIVITY_CHANGE";
 
     public boolean dataLoaded = false;
     protected AlertDialog mDialog = null;
+
+    protected final LifecycleProvider<ActivityEvent> provider
+            = NaviLifecycle.createActivityLifecycleProvider(this);//用于解决RxJava内存泄漏
 
     public BaseActivity() {
 
@@ -63,8 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void setBarColor() {
-        int color = getResources().getColor(R.color.colorPrimaryDark);
-        StatusBarUtil.setColor(this,color);
+        int color = getResources().getColor(R.color.status_bar);
+        StatusBarUtil.setColor(this, color);
     }
 
     //得到上一个页面传递的数据
@@ -125,17 +133,22 @@ public abstract class BaseActivity extends AppCompatActivity {
             // 处理各种情况
             String action = intent.getAction();
             if (ACTION_NETWORK_CHANGE.equals(action)) { // 网络发生变化
-                Observable.create(new Observable.OnSubscribe<Object>() {
+                Observable.create(new ObservableOnSubscribe<Object>() {
                     @Override
-                    public void call(Subscriber<? super Object> subscriber) {
+                    public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
                         SystemClock.sleep(2000);//收到广播后延迟两秒
-                        subscriber.onNext(new Object());
+                        emitter.onNext(new Object());
                     }
                 }).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Action1<Object>() {
+                        .subscribe(new Observer<Object>() {
                             @Override
-                            public void call(Object o) {
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
                                 // 处理网络问题
                                 boolean networkEnable = NetworkUtils.hasNetWorkConection(BaseActivity.this);
                                 if (!networkEnable) {
@@ -143,6 +156,16 @@ public abstract class BaseActivity extends AppCompatActivity {
                                 } else if (!dataLoaded) {
                                     initData();
                                 }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
                             }
                         });
             }

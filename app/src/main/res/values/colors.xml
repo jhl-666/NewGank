@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#54aee6</color>
-    <color name="colorPrimaryDark">#3c87b7</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--字体颜色-->
+    <color name="colorTextBlack">#333333</color>
+    <color name="colorTextGray">#646464</color>
+    <color name="colorTextLightGray">#969696</color>
+    <color name="colorTextGreen">#28aa46</color>
+    <color name="colorTextRed">#ff3c05</color>
+    <color name="white">#ffffff</color>
 
+    <color name="background">#ebebeb</color>
+
+    <color name="status_bar">#3c87b7</color>
     <color name="app_toolbar_bg">#3c87b7</color>
+    <color name="transparent">#00000000</color>
     <color name="status_bar_black">#000000</color>
     <color name="gray_line_color">#ebebeb</color>
     <color name="background_color">#f5f5f5</color>

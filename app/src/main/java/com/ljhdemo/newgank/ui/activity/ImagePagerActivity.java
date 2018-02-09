@@ -1,5 +1,6 @@
 package com.ljhdemo.newgank.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -115,6 +116,7 @@ public class ImagePagerActivity extends BaseActivity {
                 .start(mSavedInstanceState);
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
         //exitActivityTransition.exit(this);

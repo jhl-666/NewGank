@@ -1,6 +1,6 @@
-package com.ljhdemo.newgank.utils;
+package com.ljh.baselibrary.utils;
 
-import com.ljhdemo.newgank.BuildConfig;
+import com.ljh.baselibrary.BuildConfig;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;

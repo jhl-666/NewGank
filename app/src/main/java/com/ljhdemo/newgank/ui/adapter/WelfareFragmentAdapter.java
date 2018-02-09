@@ -6,10 +6,10 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.ljhdemo.newgank.GlideApp;
+import com.ljh.baselibrary.GlideApp;
+import com.ljh.baselibrary.utils.DensityUtil;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.bean.GankResult;
-import com.ljhdemo.newgank.utils.DensityUtil;
 
 import java.util.HashMap;
 import java.util.List;

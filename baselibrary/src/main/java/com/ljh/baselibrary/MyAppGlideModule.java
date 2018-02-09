@@ -1,4 +1,4 @@
-package com.ljhdemo.newgank;
+package com.ljh.baselibrary;
 
 import android.content.Context;
 
@@ -23,8 +23,8 @@ public class MyAppGlideModule extends AppGlideModule {
     public void applyOptions(Context context, GlideBuilder builder) {
         builder.setDefaultRequestOptions(
                 new RequestOptions()
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .placeholder(R.drawable.img_gray_bg));
+                        .format(DecodeFormat.PREFER_ARGB_8888));
+                       // .placeholder(R.drawable.img_gray_bg));
     }
 
     @Override

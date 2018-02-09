@@ -1,8 +1,8 @@
 package com.ljhdemo.newgank.http;
 
+import com.ljh.baselibrary.utils.NetworkUtils;
 import com.ljhdemo.newgank.app.MyApplication;
 import com.ljhdemo.newgank.constant.Constants;
-import com.ljhdemo.newgank.utils.NetworkUtils;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.ljhdemo.newgank.utils;
+package com.ljh.baselibrary.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,13 @@ import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 public class IntentUtils {
 
+    /**
+     * 打开图片浏览页面
+     *
+     * @param context
+     * @param intent
+     * @param view
+     */
     public static void startImagePagerActivity(Context context, Intent intent, View view) {
         ActivityTransitionLauncher.with((Activity) context).from(view).launch(intent);
         /*//android V4包的类,用于两个activity转场时的缩放效果实现
@@ -24,5 +31,14 @@ public class IntentUtils {
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.browser_enter_anim, 0);
         }*/
+    }
+
+    public static void startAppShareText(Context context, String shareTitle, String shareText) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain"); // 纯文本
+        shareIntent.putExtra(Intent.EXTRA_TITLE, shareTitle);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+        //设置分享列表的标题，并且每次都显示分享列表
+        context.startActivity(Intent.createChooser(shareIntent, "分享到"));
     }
 }

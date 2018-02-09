@@ -1,4 +1,4 @@
-package com.ljhdemo.newgank.utils;
+package com.ljh.baselibrary.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

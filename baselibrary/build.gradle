@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+def cfg = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+        resourcePrefix "base_"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation librarys.glide_okhttp3
+    compile librarys.retrofit2
+    compile librarys.retrofit2_converter_gson
+    compile librarys.rxandroid
+    compile librarys.rxjava
+    compile librarys.rxbinding
+    compile librarys.retrofit2_adapter_rxjava
+    compile librarys.rxpermissions
+    compile librarys.okhttp3
+    compile librarys.logger
+    compile librarys.kprogresshud
+    compile librarys.smarttablayout
+    compile librarys.BaseRecyclerViewAdapterHelper
+    compile librarys.SmartRefreshLayout
+    compile librarys.photoview
+    compile librarys.statusbarutil
+    compile librarys.SmartRefreshHeader
+    compile librarys.glide
+    compile librarys.rxlifecycle_components
+    compile librarys.rxlifecycle_navi
+    annotationProcessor librarys.glide_compiler
+    compile librarys.activity_transition
+}

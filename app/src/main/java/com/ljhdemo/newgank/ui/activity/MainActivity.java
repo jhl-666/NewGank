@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
                 Constants.FlagExpand,
                 Constants.FlagJS,
                 Constants.FlagAll};
+        mViewPager.setPageMargin(20);
         mViewPager.setAdapter(new MainAdapter(getSupportFragmentManager(), data, titles));
         mSmartTabLayout.setViewPager(mViewPager);
         mSmartTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -87,13 +88,5 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void setBarColor() {
         StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout, getResources().getColor(R.color.status_bar), 112);
-    }
-
-    public void initToolBar(Toolbar toolbar, String title, int icon) {
-        toolbar.setTitle(title);// 标题的文字需在setSupportActionBar之前，不然会无效
-        toolbar.setNavigationIcon(icon);
-        setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        toolbar.setPopupTheme(R.style.AppTheme);
     }
 }

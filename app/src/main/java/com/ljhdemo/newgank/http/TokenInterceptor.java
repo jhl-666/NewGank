@@ -1,7 +1,8 @@
 package com.ljhdemo.newgank.http;
 
-import com.ljhdemo.newgank.utils.DateUtils;
-import com.ljhdemo.newgank.utils.LogUtil;
+
+import com.ljh.baselibrary.utils.DateUtils;
+import com.ljh.baselibrary.utils.LogUtil;
 
 import java.io.IOException;
 

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.ljhdemo.newgank.GlideApp;
+import com.ljh.baselibrary.GlideApp;
 
 import java.util.ArrayList;
 

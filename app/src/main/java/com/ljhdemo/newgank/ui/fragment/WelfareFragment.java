@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.ljh.baselibrary.utils.DensityUtil;
+import com.ljh.baselibrary.utils.IntentUtils;
+import com.ljh.baselibrary.utils.SpaceItemDecoration;
+import com.ljh.baselibrary.utils.ToastUtils;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.bean.GankResult;
 import com.ljhdemo.newgank.ui.activity.ImagePagerActivity;
@@ -18,10 +22,6 @@ import com.ljhdemo.newgank.ui.adapter.WelfareFragmentAdapter;
 import com.ljhdemo.newgank.ui.base.MVPBaseFragment;
 import com.ljhdemo.newgank.ui.iView.IWelfareView;
 import com.ljhdemo.newgank.ui.presenter.impl.WelfarePresenterImpl;
-import com.ljhdemo.newgank.utils.DensityUtil;
-import com.ljhdemo.newgank.utils.IntentUtils;
-import com.ljhdemo.newgank.utils.SpaceItemDecoration;
-import com.ljhdemo.newgank.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -121,7 +121,7 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
 
     @Override
     public void showToast(String msg) {
-        ToastUtils.showToast(msg);
+        ToastUtils.showToast(mContext,msg);
     }
 
     @Override

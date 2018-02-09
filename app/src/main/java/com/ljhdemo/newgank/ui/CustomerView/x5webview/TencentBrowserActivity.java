@@ -1,20 +1,27 @@
 package com.ljhdemo.newgank.ui.CustomerView.x5webview;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.ljh.baselibrary.utils.IntentUtils;
+import com.ljh.baselibrary.utils.ToastUtils;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.ui.CustomerView.x5webview.util.X5WebView;
 import com.ljhdemo.newgank.ui.base.BaseActivity;
@@ -34,22 +41,29 @@ import java.util.ArrayList;
 
 public class TencentBrowserActivity extends BaseActivity {
 
-    public static Intent newIntent(Context context, String url) {
+    public static Intent newIntent(Context context, String url, String title) {
         Intent intent = new Intent(context, TencentBrowserActivity.class);
-        intent.putExtra("url", url);
+        intent.putExtra(URL, url);
+        intent.putExtra(TITLE, title);
         return intent;
     }
 
-    private String url;
+    public static final String TITLE = "TencentBrowserActivity.title";
+    public static final String URL = "TencentBrowserActivity.url";
 
-    private X5WebView mWebView;
+    private String url;
+    private String title;
     private ValueCallback<Uri> uploadFile;
+
+    private Toolbar mToolBar;
+    private X5WebView mWebView;
     private ProgressBar mPageLoadingProgressBar = null;
 
     @Override
     protected void initVariable() {
         super.initVariable();
-        url = getIntent().getStringExtra("url");
+        url = getIntent().getStringExtra(URL);
+        title = getIntent().getStringExtra(TITLE);
     }
 
     @Override
@@ -60,11 +74,14 @@ public class TencentBrowserActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        deleteX5();//去除qq浏览器的推广
+        //deleteX5();//去除qq浏览器的推广
 
         initProgressBar();
 
         mWebView = (X5WebView) findViewById(R.id.web_view);
+        mToolBar = findViewById(R.id.toolbar);
+
+        initToolBar(mToolBar, title, R.drawable.tool_back_img_white);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -87,7 +104,6 @@ public class TencentBrowserActivity extends BaseActivity {
         });
 
         mWebView.setWebChromeClient(new WebChromeClient() {
-
             @Override
             public void onProgressChanged(WebView webView, int newProgress) {
                 if (newProgress == 100) {
@@ -239,9 +255,10 @@ public class TencentBrowserActivity extends BaseActivity {
         webSetting.setAllowFileAccess(true);
         webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webSetting.setSupportZoom(true);
-        webSetting.setBuiltInZoomControls(true);
+        webSetting.setBuiltInZoomControls(false);
         webSetting.setUseWideViewPort(true);
         webSetting.setSupportMultipleWindows(false);
+        webSetting.setDisplayZoomControls(false);
         //webSetting.setLoadWithOverviewMode(true);
         webSetting.setAppCacheEnabled(true);
         //webSetting.setDatabaseEnabled(true);
@@ -259,6 +276,40 @@ public class TencentBrowserActivity extends BaseActivity {
         // webSetting.setPreFectch(true);
 
         mWebView.loadUrl(url);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_browser, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.action_copy:
+                // 从API11开始android推荐使用android.content.ClipboardManager
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                // 将文本内容放到系统剪贴板里。
+                ClipData clipData = ClipData.newPlainText("text", url);
+                cm.setPrimaryClip(clipData);
+                ToastUtils.showToast(TencentBrowserActivity.this,getString(R.string.copy_success));
+                break;
+            case R.id.action_open:
+                Intent intent = new Intent();
+                intent.setAction("android.intent.action.VIEW");
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(intent);
+                break;
+            case R.id.action_share:
+                IntentUtils.startAppShareText(TencentBrowserActivity.this, "Gank分享", "Gank分享：" + url);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initProgressBar() {

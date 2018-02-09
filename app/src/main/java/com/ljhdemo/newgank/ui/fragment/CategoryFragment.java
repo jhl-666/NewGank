@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.ljh.baselibrary.utils.ToastUtils;
 import com.ljhdemo.newgank.R;
 import com.ljhdemo.newgank.bean.GankResult;
 import com.ljhdemo.newgank.ui.CustomerView.x5webview.TencentBrowserActivity;
@@ -19,7 +20,6 @@ import com.ljhdemo.newgank.ui.adapter.CategoryFragmentAdapter;
 import com.ljhdemo.newgank.ui.base.MVPBaseFragment;
 import com.ljhdemo.newgank.ui.iView.ICategoryView;
 import com.ljhdemo.newgank.ui.presenter.impl.CategoryPresenterImpl;
-import com.ljhdemo.newgank.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -87,13 +87,11 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 mPresenter.getNewDatas();
-                //refreshlayout.finishRefresh();//传入false表示刷新失败
             }
         });
         mSmartRefreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                //refreshlayout.finishLoadmore();//传入false表示加载失败
                 mPresenter.getMoreDatas();
             }
         });
@@ -102,9 +100,11 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
         mCategoryFragmentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String url = mCategoryFragmentAdapter.getData().get(position).getUrl();
-                Intent intent = TencentBrowserActivity.newIntent(mContext, url);
+                GankResult.ResultsBean resultsBean = mCategoryFragmentAdapter.getData().get(position);
+                String url = resultsBean.getUrl();
+                Intent intent = TencentBrowserActivity.newIntent(mContext, url, resultsBean.getDesc());
                 startActivity(intent);
+                //startActivity(new Intent(mContext, Main2Activity.class));
             }
         });
         mRecyclerView.setAdapter(mCategoryFragmentAdapter);
@@ -117,7 +117,7 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
 
     @Override
     public void showToast(String msg) {
-        ToastUtils.showToast(msg);
+        ToastUtils.showToast(mContext,msg);
     }
 
     @Override

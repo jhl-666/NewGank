@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 
 import com.jaeger.library.StatusBarUtil;
+import com.ljh.baselibrary.utils.NetworkUtils;
 import com.ljhdemo.newgank.R;
-import com.ljhdemo.newgank.utils.NetworkUtils;
 import com.trello.navi2.component.support.NaviAppCompatActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -85,6 +86,21 @@ public abstract class BaseActivity extends NaviAppCompatActivity {
 
     // 抽象方法，初始化UI
     protected void initView() {
+    }
+
+    /**
+     * 初始化toolbar
+     *
+     * @param toolbar
+     * @param title
+     * @param icon
+     */
+    protected void initToolBar(Toolbar toolbar, String title, int icon) {
+        toolbar.setTitle(title);// 标题的文字需在setSupportActionBar之前，不然会无效
+        toolbar.setNavigationIcon(icon);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorTextWhite));
+        toolbar.setPopupTheme(R.style.ToolBarPopupThemeDay);
     }
 
     //初始化数据

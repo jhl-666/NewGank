@@ -13,4 +13,13 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="ToolBarPopupThemeDay" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:textColor">@color/app_toolbar_bg</item>
+        <item name="android:background">@color/colorTextWhite</item>
+    </style>
+
+    <style name="ToolBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionMenuTextColor">#fff</item>
+    </style>
+
 </resources>

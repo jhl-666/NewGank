@@ -34,40 +34,16 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    /* implementation ("com.github.bumptech.glide:okhttp-integration:4.4.0") {
-        transitive = false
-    }*/
     implementation librarys.appcompat_v7
     implementation librarys.constraint_layout
     implementation librarys.design
     implementation librarys.constraint_layout
-    implementation librarys.glide_okhttp3
     implementation librarys.support_v4
     testImplementation librarys.junit
     androidTestImplementation librarys.runner
     androidTestImplementation librarys.espresso_core
-    compile librarys.retrofit2
-    compile librarys.retrofit2_converter_gson
-    compile librarys.rxandroid
-    compile librarys.rxjava
-    compile librarys.rxbinding
-    compile librarys.retrofit2_adapter_rxjava
-    compile librarys.rxpermissions
-    compile librarys.okhttp3
     compile librarys.butterknife
-    compile librarys.logger
-    compile librarys.kprogresshud
-    compile librarys.smarttablayout
-    compile librarys.BaseRecyclerViewAdapterHelper
-    compile librarys.SmartRefreshLayout
-    compile librarys.photoview
-    compile librarys.statusbarutil
-    compile librarys.SmartRefreshHeader//没有使用特殊Header，可以不加这行
-    compile librarys.glide
-    compile librarys.rxlifecycle_components
-    compile librarys.rxlifecycle_navi
-    annotationProcessor librarys.glide_compiler
-    compile librarys.activity_transition//Activity兼容共享元素动画
-    compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
     annotationProcessor librarys.butterknife_compiler
+    implementation project(':baselibrary')
+    compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }

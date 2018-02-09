@@ -1,9 +1,8 @@
-package com.ljhdemo.newgank.utils;
+package com.ljh.baselibrary.utils;
 
+import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
-
-import com.ljhdemo.newgank.app.MyApplication;
 
 /**
  * Created by ljh on 2016/8/23.
@@ -14,9 +13,9 @@ public class ToastUtils {
     private static long oneTime = 0;
     private static long twoTime = 0;
 
-    public static void showToast(String s) {
+    public static void showToast(Context context, String s) {
         if (toast == null) {
-            toast = Toast.makeText(MyApplication.getContext(), s, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(context.getApplicationContext(), s, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             oneTime = System.currentTimeMillis();
@@ -36,7 +35,7 @@ public class ToastUtils {
     }
 
 
-    public static void showToast(int resId) {
-        showToast(MyApplication.getContext().getString(resId));
+    public static void showToast(Context context, int resId) {
+        showToast(context, context.getApplicationContext().getString(resId));
     }
 }

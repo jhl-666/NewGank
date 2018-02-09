@@ -5,12 +5,17 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--字体颜色-->
+    <color name="colorTextWhite">#ffffff</color>
     <color name="colorTextBlack">#333333</color>
     <color name="colorTextGray">#646464</color>
     <color name="colorTextLightGray">#969696</color>
     <color name="colorTextGreen">#28aa46</color>
     <color name="colorTextRed">#ff3c05</color>
+
+    <!--background-->
     <color name="white">#ffffff</color>
+
+    <color name="theme_color">#f0f0f0</color>
 
     <color name="background">#ebebeb</color>
 

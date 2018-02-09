@@ -1,4 +1,4 @@
-package com.ljhdemo.newgank.utils;
+package com.ljh.baselibrary.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

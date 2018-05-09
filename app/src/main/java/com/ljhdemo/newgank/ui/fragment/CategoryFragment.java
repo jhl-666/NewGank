@@ -3,13 +3,10 @@ package com.ljhdemo.newgank.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ljh.baselibrary.utils.ToastUtils;
@@ -28,8 +25,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * 分类fragment("福利", "Android", "ios", "休息视频", "拓展资源", "前端", "all")
@@ -53,32 +48,19 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
     RecyclerView mRecyclerView;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
-    Unbinder unbinder;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void initVariable(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         mCategory = bundle.getString(CATEGORY_KEY);
-
-        super.onCreate(savedInstanceState);
-
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initView();
-        initData();
-        return view;
+    protected int provideLayoutId(Bundle savedInstanceState) {
+        return R.layout.fragment_category;
     }
 
-    private void initData() {
-        mPresenter.getNewDatas();
-    }
-
+    @Override
     protected void initView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -110,6 +92,12 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
         mRecyclerView.setAdapter(mCategoryFragmentAdapter);
     }
 
+
+    @Override
+    protected void initData() {
+        mPresenter.getNewDatas();
+    }
+
     @Override
     public void setCategoryList(List<GankResult.ResultsBean> categoryList) {
         mCategoryFragmentAdapter.addData(categoryList);
@@ -134,11 +122,5 @@ public class CategoryFragment extends MVPBaseFragment<ICategoryView, CategoryPre
     @Override
     protected CategoryPresenterImpl createPresenter() {
         return new CategoryPresenterImpl(provider, mCategory);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

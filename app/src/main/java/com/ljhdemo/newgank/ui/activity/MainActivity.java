@@ -19,7 +19,6 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
@@ -37,15 +36,12 @@ public class MainActivity extends BaseActivity {
     SmartTabLayout mSmartTabLayout;
 
     @Override
-    protected void setContentView(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    protected int provideLayoutId(Bundle savedInstanceState) {
+        return R.layout.activity_main;
     }
 
     @Override
     protected void initView() {
-        super.initView();
-
         initToolBar(mToolbar, "福利", R.drawable.gank_icon_menu_white);
 
         ArrayList<BaseFragment> data = new ArrayList<>();

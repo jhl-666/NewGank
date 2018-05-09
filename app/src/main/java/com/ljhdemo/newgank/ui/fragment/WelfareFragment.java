@@ -2,13 +2,10 @@ package com.ljhdemo.newgank.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ljh.baselibrary.utils.DensityUtil;
@@ -31,8 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by ljh on 2018/1/4.
@@ -44,7 +39,6 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
         return new WelfareFragment();
     }
 
-    Unbinder unbinder;
     private WelfareFragmentAdapter welfareFragmentAdapter;
 
     @BindView(R.id.recycler_view)
@@ -52,22 +46,17 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_welfare_layout, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initView();
-        return view;
+    protected void initVariable(Bundle savedInstanceState) {
+
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    protected int provideLayoutId(Bundle savedInstanceState) {
+        return R.layout.fragment_welfare_layout;
     }
 
+    @Override
     protected void initView() {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -112,6 +101,11 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
         });
         mRecyclerView.setAdapter(welfareFragmentAdapter);
         mSmartRefreshLayout.autoRefresh();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override

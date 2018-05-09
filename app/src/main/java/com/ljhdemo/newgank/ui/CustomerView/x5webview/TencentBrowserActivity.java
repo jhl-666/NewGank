@@ -67,9 +67,9 @@ public class TencentBrowserActivity extends BaseActivity {
     }
 
     @Override
-    protected void setContentView(Bundle savedInstanceState) {
+    protected int provideLayoutId(Bundle savedInstanceState) {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        setContentView(R.layout.activity_tencent_browser);
+        return R.layout.activity_tencent_browser;
     }
 
     @Override

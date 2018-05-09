@@ -1,17 +1,11 @@
 package com.ljhdemo.newgank.ui.base;
 
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 /**
  * Created by ljh on 2017/12/13.
  */
 
-abstract public class LazyLoadFragment extends BaseFragment {
+ public abstract class LazyLoadFragment extends BaseFragment {
     /**
      * 视图是否已经初始化
      */
@@ -20,22 +14,6 @@ abstract public class LazyLoadFragment extends BaseFragment {
      * 是否加载过数据
      */
     protected boolean isLoad = false;
-
-    protected View contentView = null;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        contentView = inflater.inflate(setContentView(), container, false);
-        isInit = true;
-        /*初始化的时候去加载数据*/
-        isCanLoadData();
-        return contentView;
-    }
-
-    protected abstract int setContentView();
-
-
     /**
      * 视图是否已经对用户可见
      *

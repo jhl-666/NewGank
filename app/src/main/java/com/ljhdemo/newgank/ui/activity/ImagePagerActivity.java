@@ -20,7 +20,6 @@ import com.ljhdemo.newgank.ui.base.BaseActivity;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ImagePagerActivity extends BaseActivity {
 
@@ -56,16 +55,9 @@ public class ImagePagerActivity extends BaseActivity {
     }
 
     @Override
-    protected void setContentView(Bundle savedInstanceState) {
-       /* getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);*/
-
+    protected int provideLayoutId(Bundle savedInstanceState) {
         mSavedInstanceState = savedInstanceState;
-
-        setContentView(R.layout.activity_image_pager);
-        ButterKnife.bind(this);
-
-        //hideStatusBar();
+        return R.layout.activity_image_pager;
     }
 
     private void hideStatusBar() {
@@ -88,7 +80,10 @@ public class ImagePagerActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        super.initView();
+         /* getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);*/
+
+        //hideStatusBar();
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, urls);
         mViewPager.setAdapter(imagesPagerAdapter);
         mViewPager.setCurrentItem(position, false);

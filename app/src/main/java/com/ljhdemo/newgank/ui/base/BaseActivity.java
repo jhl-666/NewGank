@@ -19,6 +19,7 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -49,7 +50,9 @@ public abstract class BaseActivity extends NaviAppCompatActivity {
 
         initVariable();
 
-        setContentView(savedInstanceState);
+        setContentView(provideLayoutId(savedInstanceState));
+
+        ButterKnife.bind(this);
 
         setBarColor();
 
@@ -81,12 +84,11 @@ public abstract class BaseActivity extends NaviAppCompatActivity {
 
     }
 
-    //setContentView
-    protected abstract void setContentView(Bundle savedInstanceState);
+    //获取局部
+    protected abstract int provideLayoutId(Bundle savedInstanceState);
 
     // 抽象方法，初始化UI
-    protected void initView() {
-    }
+    protected abstract void initView();
 
     /**
      * 初始化toolbar

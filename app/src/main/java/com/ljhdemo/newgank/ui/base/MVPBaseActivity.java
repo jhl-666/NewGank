@@ -11,10 +11,11 @@ public abstract class MVPBaseActivity<V, T extends BasePresenter<V>> extends Bas
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         mPresenter = createPresenter(); //创建Presenter
 
         mPresenter.attachView((V) this);
-        super.onCreate(savedInstanceState);
     }
 
 

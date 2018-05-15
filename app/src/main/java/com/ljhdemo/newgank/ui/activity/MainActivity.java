@@ -12,6 +12,7 @@ import com.ljhdemo.newgank.constant.Constants;
 import com.ljhdemo.newgank.ui.adapter.MainAdapter;
 import com.ljhdemo.newgank.ui.base.BaseActivity;
 import com.ljhdemo.newgank.ui.base.BaseFragment;
+import com.ljhdemo.newgank.ui.dialog.OpenNotificationDialog;
 import com.ljhdemo.newgank.ui.fragment.CategoryFragment;
 import com.ljhdemo.newgank.ui.fragment.WelfareFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -79,6 +80,8 @@ public class MainActivity extends BaseActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        OpenNotificationDialog.showDialog(this);
     }
 
     @Override

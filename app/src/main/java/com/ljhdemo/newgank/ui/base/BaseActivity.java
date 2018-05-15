@@ -34,6 +34,7 @@ public abstract class BaseActivity extends NaviAppCompatActivity {
 
     public boolean dataLoaded = false;
     protected AlertDialog mDialog = null;
+    public boolean isOnPause;
 
     protected final LifecycleProvider<ActivityEvent> provider
             = NaviLifecycle.createActivityLifecycleProvider(this);//用于解决RxJava内存泄漏
@@ -117,12 +118,14 @@ public abstract class BaseActivity extends NaviAppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_NETWORK_CHANGE);
         registerReceiver(receiver, filter);
+        isOnPause = false;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
+        isOnPause = true;
     }
 
     public void networkAlert(final Context context) {

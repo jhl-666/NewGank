@@ -14,7 +14,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
-            //选择要添加的对应cpu类型的.so库。
+            //选择要添加的对应cpu型的.so库。
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
             //abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
@@ -26,12 +26,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs' //这样可以找到 libs 下的aar文件
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
-    buildToolsVersion '27.0.3'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -39,16 +43,12 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation librarys.appcompat_v7
-    implementation librarys.constraint_layout
-    implementation librarys.design
-    implementation librarys.constraint_layout
-    implementation librarys.support_v4
-    testImplementation librarys.junit
-    androidTestImplementation librarys.runner
-    androidTestImplementation librarys.espresso_core
-    compile librarys.butterknife
+    implementation project(':lib_common')
     annotationProcessor librarys.butterknife_compiler
-    implementation project(':baselibrary')
-    compile files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
+
+    implementation(name: 'module_main-debug', ext: 'aar')
+
+    if (!isModule.toBoolean()) {//动态
+        //implementation project(':module_main')
+    }
 }

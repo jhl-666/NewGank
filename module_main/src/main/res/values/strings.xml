@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NewGank</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- 打开通知弹窗 -->
+    <string name="open_notification_dialog_title">打开推送通知</string>
+    <string name="open_notification_dialog_content">与行业时刻同步</string>
+    <string name="open_notification_dialog_action">开启推送通知</string>
+</resources>

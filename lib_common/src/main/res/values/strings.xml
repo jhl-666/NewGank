@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">我是谁</string>
+
+    <string name="copy_success">复制成功</string>
+</resources>

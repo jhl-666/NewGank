@@ -20,9 +20,32 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
     }
+    signingConfigs {
+        key {
+            storeFile file('android.keystore')
+            storePassword '111111'
+            keyAlias 'zimuli'
+            keyPassword '111111'
+        }
+    }
+
     buildTypes {
+        debug {
+            //手机上同时装两个apk
+            /*applicationIdSuffix ".debug"
+            versionNameSuffix = "_dev"
+            minifyEnabled false*/
+            zipAlignEnabled false
+            shrinkResources false
+            debuggable true
+            signingConfig signingConfigs.key
+        }
         release {
-            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources true
+            debuggable false
+            signingConfig signingConfigs.key
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,6 +70,7 @@ dependencies {
     annotationProcessor librarys.butterknife_compiler
 
     implementation(name: 'module_main-debug', ext: 'aar')
+    implementation(name: 'moudle_one-debug', ext: 'aar')
 
     if (!isModule.toBoolean()) {//动态
         //implementation project(':module_main')

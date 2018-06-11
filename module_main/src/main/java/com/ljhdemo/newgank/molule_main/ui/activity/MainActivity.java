@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.jaeger.library.StatusBarUtil;
 import com.ljhdemo.newgank.common.base.BaseActivity;
 import com.ljhdemo.newgank.common.base.BaseFragment;
@@ -84,6 +87,25 @@ public class MainActivity extends BaseActivity {
         });
 
         OpenNotificationDialog.showDialog(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(com.ljhdemo.newgank.common.R.menu.menu_browser, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == android.R.id.home) {
+            ARouter.getInstance().build("/test/OneMainActivity").navigation();
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void initData() {
+        super.initData();
     }
 
     @Override

@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_common" />
             <option value="$PROJECT_DIR$/module_main" />
+            <option value="$PROJECT_DIR$/moudle_one" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

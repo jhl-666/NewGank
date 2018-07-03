@@ -1,5 +1,7 @@
 package com.ljhdemo.newgank.common.http;
 
+import android.text.TextUtils;
+
 import com.ljhdemo.newgank.common.base.BaseApplication;
 import com.ljhdemo.newgank.common.utils.NetworkUtils;
 
@@ -95,7 +97,7 @@ public class ServiceGenerator {
             Response response = chain.proceed(request);
             if (netWorkConection) {
                 //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-                String cacheControl = request.cacheControl().toString();
+                String cacheControl = TextUtils.isEmpty(request.cacheControl().toString()) ? "30": request.cacheControl().toString();//默认30秒缓存
                 response.newBuilder()
                         .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                         .header("Cache-Control", cacheControl)

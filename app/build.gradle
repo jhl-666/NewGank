@@ -32,13 +32,13 @@ android {
     buildTypes {
         debug {
             //手机上同时装两个apk
-            /*applicationIdSuffix ".debug"
-            versionNameSuffix = "_dev"
-            minifyEnabled false*/
+            //applicationIdSuffix ".debug"
+            minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
             debuggable true
             signingConfig signingConfigs.key
+            versionNameSuffix = "_dev"//区分debug和release版本
         }
         release {
             zipAlignEnabled true

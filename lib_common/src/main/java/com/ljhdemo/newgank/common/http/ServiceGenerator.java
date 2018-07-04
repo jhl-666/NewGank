@@ -2,6 +2,7 @@ package com.ljhdemo.newgank.common.http;
 
 import android.text.TextUtils;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.ljhdemo.newgank.common.base.BaseApplication;
 import com.ljhdemo.newgank.common.utils.NetworkUtils;
 
@@ -58,6 +59,10 @@ public class ServiceGenerator {
                     client.addInterceptor(new TokenInterceptor());
                     client.addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR);
                     client.addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR);
+
+                    if (com.ljhdemo.newgank.common.BuildConfig.DEBUG)
+                        client.addNetworkInterceptor(new StethoInterceptor());
+
                     okHttpClient = client.build();
                 }
             }

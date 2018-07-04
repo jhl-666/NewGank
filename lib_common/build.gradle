@@ -70,5 +70,7 @@ dependencies {
     annotationProcessor librarys.glide_compiler
     api librarys.activity_transition
     api librarys.arouter_api
+    api librarys.stetho
+    api librarys.stetho_okhttp
     api files('libs/tbs_sdk_thirdapp_v3.0.0.1038_43000_sharewithdownload_obfs_20170110_144724.jar')
 }

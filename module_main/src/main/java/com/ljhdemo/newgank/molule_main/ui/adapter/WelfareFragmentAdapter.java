@@ -28,7 +28,7 @@ public class WelfareFragmentAdapter extends BaseQuickAdapter<GankResult.ResultsB
     public WelfareFragmentAdapter(int layoutResId, @Nullable List<GankResult.ResultsBean> data, Context context) {
         super(layoutResId, data);
         mContext = context;
-        screenWidth = (int) (DensityUtil.getWidth(mContext) / 2);
+        screenWidth = (int) (DensityUtil.getScreenWidth() / 2);
         hashMap = new HashMap<>();
     }
 

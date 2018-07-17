@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 def cfg = rootProject.ext.android
 def librarys = rootProject.ext.dependencies
 android {
-    compileSdkVersion 26
+    compileSdkVersion cfg.compileSdkVersion
 
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
@@ -11,6 +11,7 @@ android {
         versionCode cfg.versionCode
         versionName cfg.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
 
         javaCompileOptions {
             annotationProcessorOptions {

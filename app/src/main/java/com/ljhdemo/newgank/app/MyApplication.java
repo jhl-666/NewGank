@@ -1,5 +1,7 @@
 package com.ljhdemo.newgank.app;
 
+import android.content.Context;
+
 import com.ljhdemo.newgank.common.base.BaseApplication;
 
 /**
@@ -7,7 +9,10 @@ import com.ljhdemo.newgank.common.base.BaseApplication;
  */
 
 public class MyApplication extends BaseApplication {
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+    }
     @Override
     public void onCreate() {
         super.onCreate();

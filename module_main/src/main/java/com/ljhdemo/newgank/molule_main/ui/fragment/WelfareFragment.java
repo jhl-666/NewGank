@@ -61,7 +61,7 @@ public class WelfareFragment extends MVPBaseFragment<IWelfareView, WelfarePresen
     protected void initView() {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtil.dip2px(mContext, 2), 2));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(DensityUtil.dip2px( 2), 2));
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {

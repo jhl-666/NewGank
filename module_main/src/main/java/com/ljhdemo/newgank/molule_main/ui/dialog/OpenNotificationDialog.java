@@ -45,7 +45,7 @@ public class OpenNotificationDialog extends BaseDialogFragment implements View.O
         if (window != null) {
             WindowManager.LayoutParams params = window.getAttributes();
             params.gravity = Gravity.CENTER;
-            params.width = (int) (DensityUtil.getWidth(getContext()) - DensityUtil.dip2px(getContext(),80));
+            params.width = (int) (DensityUtil.getScreenWidth() - DensityUtil.dip2px(80));
             window.setAttributes(params);
             window.setBackgroundDrawableResource(R.color.transparent);
         }

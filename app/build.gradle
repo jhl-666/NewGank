@@ -23,9 +23,9 @@ android {
     signingConfigs {
         key {
             storeFile file('android.keystore')
-            storePassword '111111'
-            keyAlias 'zimuli'
-            keyPassword '111111'
+            storePassword rootProject.ext.storePassword
+            keyAlias rootProject.ext.keyAlias
+            keyPassword rootProject.ext.keyPassword
         }
     }
 
